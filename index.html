@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>FF Sensitivity Bot 2026</title>
+<style>
+body { font-family: Arial; background:#0e0e0e; color:#fff; padding:20px }
+input, select, button {
+  width:100%; padding:10px; margin:6px 0;
+  border-radius:6px; border:none; font-size:16px
+}
+button { background:#00ff88; font-weight:bold }
+.result { margin-top:15px; background:#1a1a1a; padding:15px; border-radius:8px }
+</style>
+</head>
+<body>
+
+<h2>Free Fire Sensitivity Bot 2026</h2>
+
+<input id="phone" placeholder="Номи телефон (масалан: Redmi Note 12)">
+
+<label>Headshot Rate</label>
+<select id="headshot">
+  <option value="97">97%</option>
+  <option value="95">95%</option>
+  <option value="90">90%</option>
+</select>
+
+<label>Recoil</label>
+<select id="recoil">
+  <option value="0">0%</option>
+  <option value="2">2%</option>
+</select>
+
+<label>Aim Head</label>
+<select id="aimHead">
+  <option value="100">100%</option>
+  <option value="95">95%</option>
+</select>
+
+<label>Aim Lock</label>
+<select id="aimLock">
+  <option value="100">100%</option>
+  <option value="95">95%</option>
+</select>
+
+<label>Fire Button Size</label>
+<select id="fire">
+  <option value="40">40%</option>
+  <option value="45">45%</option>
+  <option value="50">50%</option>
+</select>
+
+<button onclick="generate()">Generate Sensitivity</button>
+
+<div class="result" id="out"></div>
+
+<script>
+function clamp(v,min,max){ return v<min?min:v>max?max:v }
+
+function devicePower(name){
+  name = name.toLowerCase()
+  if(name.includes("iphone")) return 1.25
+  if(name.includes("snapdragon")) return 1.15
+  if(name.includes("redmi") || name.includes("samsung")) return 1.1
+  return 1.0
+}
+
+function generate(){
+  let phone = document.getElementById("phone").value
+  if(phone.length < 3){
+    alert("Номи телефонро навис!")
+    return
+  }
+
+  let head = +headshot.value
+  let recoil = +recoil.value
+  let aimH = +aimHead.value
+  let aimL = +aimLock.value
+  let fire = +fire.value
+
+  let power = devicePower(phone)
+
+  let base = 120 * power
+
+  let general = clamp(base + (head-90)*1.2 - recoil*8, 0, 200)
+  let redDot = clamp(general + aimH*0.25, 0, 200)
+  let scope2x = clamp(general - 10 + aimL*0.2, 0, 200)
+  let scope4x = clamp(general - 25, 0, 200)
+  let awm = clamp(general - 35 - recoil*5, 0, 200)
+
+  out.innerHTML = `
+  <b>📱 Телефон:</b> ${phone}<br><br>
+  <b>General:</b> ${Math.round(general)}<br>
+  <b>Red Dot:</b> ${Math.round(redDot)}<br>
+  <b>2x Scope:</b> ${Math.round(scope2x)}<br>
+  <b>4x Scope:</b> ${Math.round(scope4x)}<br>
+  <b>AWM:</b> ${Math.round(awm)}<br><br>
+  <b>Fire Button:</b> ${fire}%
+  `
+}
+</script>
+
+</body>
+</html>
