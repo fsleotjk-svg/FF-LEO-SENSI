@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sensibida – Free Fire 2026</title>
+<style>
+body {
+  background:#0f0f0f;
+  color:#fff;
+  font-family:Arial;
+  max-width:600px;
+  margin:auto;
+  padding:20px;
+}
+input, select, button {
+  width:100%;
+  margin:6px 0;
+  padding:10px;
+  font-size:16px;
+}
+button {
+  background:#ffcc00;
+  border:none;
+  font-weight:bold;
+}
+.result {
+  background:#1a1a1a;
+  padding:15px;
+  margin-top:15px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Sensibida – Free Fire 2026</h2>
+
+<label>Phone Name</label>
+<input id="phone" placeholder="Example: Redmi Note 12 Pro">
+
+<label>Headshot Rate</label>
+<select id="headshot">
+  <option value="97">97%</option>
+  <option value="95">95%</option>
+  <option value="90">90%</option>
+</select>
+
+<label>Recoil Sensitivity</label>
+<select id="recoil">
+  <option value="0">0%</option>
+  <option value="2">2%</option>
+</select>
+
+<label>Aim Head Accuracy</label>
+<select id="aimHead">
+  <option value="100">100%</option>
+  <option value="95">95%</option>
+</select>
+
+<label>Aim Lock Strength</label>
+<select id="aimLock">
+  <option value="100">100%</option>
+  <option value="95">95%</option>
+</select>
+
+<label>Fire Button Size</label>
+<select id="fireBtn">
+  <option value="40">40%</option>
+  <option value="45">45%</option>
+  <option value="50">50%</option>
+  <option value="55">55%</option>
+</select>
+
+<button onclick="generate()">Generate Sensitivity</button>
+
+<div class="result" id="output"></div>
+
+<script>
+function clamp(val) {
+  return Math.max(0, Math.min(200, Math.round(val)));
+}
+
+function generate() {
+  let phone = document.getElementById("phone").value || "Unknown Phone";
+  let headshot = Number(headshot = document.getElementById("headshot").value);
+  let recoil = Number(document.getElementById("recoil").value);
+  let aimHead = Number(document.getElementById("aimHead").value);
+  let aimLock = Number(document.getElementById("aimLock").value);
+  let fireBtn = document.getElementById("fireBtn").value;
+
+  let general = clamp(120 + headshot * 0.4);
+  let redDot = clamp(110 + headshot * 0.35);
+  let scope2x = clamp(95 + (aimHead - recoil));
+  let scope4x = clamp(85 + (aimLock - recoil));
+  let awm = clamp(60 + (aimLock * 0.4) - recoil * 5);
+  let freeLook = clamp(70 + headshot * 0.3);
+
+  let linkData = encodeURIComponent(JSON.stringify({
+    phone, general, redDot, scope2x, scope4x, awm, freeLook, fireBtn
+  }));
+
+  let link = location.origin + location.pathname + "?sensibida=" + linkData;
+
+  document.getElementById("output").innerHTML = `
+  <b>Phone:</b> ${phone}<br><br>
+  <b>🎯 Sensitivity (Free Fire 2026)</b><br>
+  General: ${general}<br>
+  Red Dot: ${redDot}<br>
+  2x Scope: ${scope2x}<br>
+  4x Scope: ${scope4x}<br>
+  AWM Scope: ${awm}<br>
+  Free Look: ${freeLook}<br>
+  Fire Button Size: ${fireBtn}%<br><br>
+  <b>🔗 Shareable Link:</b><br>
+  <input value="${link}" readonly>
+  `;
+}
+</script>
+
+</body>
+</html>
