@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Free Fire Sensitivity Generator 2026</title>
+<style>
+body {
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    font-family: Arial, sans-serif;
+    color: #fff;
+}
+.container {
+    max-width: 420px;
+    margin: 30px auto;
+    background: #111;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px #00ffcc;
+}
+h2 {
+    text-align: center;
+    color: #00ffcc;
+}
+label {
+    display: block;
+    margin-top: 12px;
+    font-size: 14px;
+}
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    background: #222;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+}
+button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    background: linear-gradient(90deg,#00ffcc,#00ccff);
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+button:hover {
+    opacity: 0.9;
+}
+.result {
+    margin-top: 20px;
+    background: #000;
+    padding: 15px;
+    border-radius: 10px;
+    display: none;
+}
+.result p {
+    font-size: 14px;
+    margin: 6px 0;
+}
+.footer {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 11px;
+    color: #888;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>🎮 Free Fire Sensi PRO</h2>
+
+<label>📱 Phone Name</label>
+<input type="text" id="phone" placeholder="Example: Redmi Note 13">
+
+<label>🎯 Headshot Rate Sensitivity</label>
+<select id="headshot">
+<option value="97">97%</option>
+<option value="95">95%</option>
+<option value="90">90%</option>
+</select>
+
+<label>🔫 Recoil Sensitivity</label>
+<select id="recoil">
+<option value="0">0%</option>
+</select>
+
+<label>🎯 Aim Head Sensitivity</label>
+<select id="aimhead">
+<option value="100">100%</option>
+<option value="95">95%</option>
+</select>
+
+<label>🎯 Aim Lock Sensitivity</label>
+<select id="aimlock">
+<option value="100">100%</option>
+<option value="95">95%</option>
+</select>
+
+<label>🔥 Fire Button Size (40% - 55%)</label>
+<input type="number" id="firebtn" min="40" max="55" value="45">
+
+<button onclick="getSensi()">GET SENSI</button>
+
+<div class="result" id="result"></div>
+
+<div class="footer">Design PRO • Free Fire 2026</div>
+</div>
+
+<script>
+function clamp(value, min, max) {
+    return Math.max(min, Math.min(max, value));
+}
+
+function getSensi() {
+    let phone = document.getElementById("phone").value || "Unknown Device";
+    let headshot = parseInt(document.getElementById("headshot").value);
+    let recoil = parseInt(document.getElementById("recoil").value);
+    let aimhead = parseInt(document.getElementById("aimhead").value);
+    let aimlock = parseInt(document.getElementById("aimlock").value);
+    let firebtn = clamp(parseInt(document.getElementById("firebtn").value),40,55);
+
+    // REALISTIC CALCULATION (NOT RANDOM)
+    let general = clamp(Math.round((headshot + aimhead) / 1.1), 0, 200);
+    let redDot = clamp(Math.round((general * 0.95)), 0, 200);
+    let scope2x = clamp(Math.round((general * 0.85)), 0, 200);
+    let scope4x = clamp(Math.round((general * 0.75)), 0, 200);
+    let awm = clamp(Math.round((general * 0.65)), 0, 200);
+    let freeLook = clamp(Math.round((general * 0.6)), 0, 200);
+
+    let output = `
+    <p>📱 Phone: <b>${phone}</b></p>
+    <p>🎯 General: <b>${general}</b></p>
+    <p>🔴 Red Dot: <b>${redDot}</b></p>
+    <p>🔍 2x Scope: <b>${scope2x}</b></p>
+    <p>🔭 4x Scope: <b>${scope4x}</b></p>
+    <p>🎯 AWM Scope: <b>${awm}</b></p>
+    <p>👁 Free Look: <b>${freeLook}</b></p>
+    <p>🔥 Fire Button Size: <b>${firebtn}%</b></p>
+    <p>🎯 Headshot Rate: <b>${headshot}%</b></p>
+    <p>🔫 Recoil Control: <b>${recoil}%</b></p>
+    <p>🎯 Aim Head: <b>${aimhead}%</b></p>
+    <p>🎯 Aim Lock: <b>${aimlock}%</b></p>
+    `;
+
+    let resultBox = document.getElementById("result");
+    resultBox.style.display = "block";
+    resultBox.innerHTML = output;
+}
+</script>
+
+</body>
+</html>
