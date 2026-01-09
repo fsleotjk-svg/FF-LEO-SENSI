@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="tg">
+<head>
+<meta charset="UTF-8">
+<title>Free Fire AI Smart Sensi</title>
+<style>
+body{
+  margin:0;
+  background:linear-gradient(135deg,#050505,#0f2027);
+  font-family:Arial, sans-serif;
+  color:#fff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+.box{
+  width:360px;
+  background:#0b0b0b;
+  padding:20px;
+  border-radius:16px;
+  box-shadow:0 0 25px #00ffcc;
+}
+h2{
+  text-align:center;
+  color:#00ffcc;
+}
+label{
+  font-size:13px;
+  opacity:.9;
+}
+input,select,button{
+  width:100%;
+  margin-top:6px;
+  margin-bottom:10px;
+  padding:10px;
+  border-radius:10px;
+  border:none;
+  outline:none;
+}
+button{
+  background:#00ffcc;
+  color:#000;
+  font-weight:bold;
+  cursor:pointer;
+}
+.result{
+  background:#000;
+  border-radius:12px;
+  padding:12px;
+  font-size:14px;
+  margin-top:10px;
+}
+</style>
+</head>
+<body>
+
+<div class="box">
+<h2>🎮 AI SMART SENSI</h2>
+
+<label>Phone Name</label>
+<input id="phone" placeholder="Example: Samsung A51">
+
+<label>Max Sensitivity (0–200)</label>
+<input type="number" id="maxSensi" value="200">
+
+<label>Play Style</label>
+<select id="play">
+  <option value="rush">Rush</option>
+  <option value="balanced">Balanced</option>
+  <option value="sniper">Sniper</option>
+</select>
+
+<label>Device Type</label>
+<select id="device">
+  <option value="low">Low-End</option>
+  <option value="mid">Mid-Range</option>
+  <option value="high">Flagship</option>
+</select>
+
+<label>FPS Mode</label>
+<select id="fps">
+  <option value="normal">Normal</option>
+  <option value="high">High (60 FPS)</option>
+</select>
+
+<label>Finger Type</label>
+<select id="finger">
+  <option value="thumb">Thumb</option>
+  <option value="claw">Claw</option>
+  <option value="four">4 Finger</option>
+</select>
+
+<button onclick="getSensi()">🔥 Get Sensi</button>
+
+<div class="result" id="out"></div>
+</div>
+
+<script>
+function rand(min,max){
+  return Math.floor(Math.random()*(max-min+1))+min;
+}
+
+function getSensi(){
+  let phone = phoneName();
+  let max = Number(maxSensi.value);
+
+  // ===== AI BASE VALUES =====
+  let general = 100;
+  let red = 90;
+  let s2 = 80;
+  let s4 = 70;
+  let awm = 55;
+
+  let play = document.getElementById("play").value;
+  let device = document.getElementById("device").value;
+  let fps = document.getElementById("fps").value;
+  let finger = document.getElementById("finger").value;
+
+  // ===== AI LOGIC =====
+  if(play==="rush") general+=25;
+  if(play==="sniper") general-=15;
+
+  if(device==="low") general+=10;
+  if(device==="high") general-=5;
+
+  if(fps==="high"){
+    general-=8; red-=5;
+  }
+
+  // ===== SMART RANDOM =====
+  general = rand(general-8, general+8);
+  red = rand(red-6, red+6);
+  s2 = rand(s2-6, s2+6);
+  s4 = rand(s4-5, s4+5);
+  awm = rand(awm-4, awm+4);
+
+  // ===== LIMITS =====
+  general = Math.min(max,Math.max(60,general));
+  red = Math.min(general,red);
+  s2 = Math.min(red,s2);
+  s4 = Math.min(s2,s4);
+  awm = Math.min(s4,awm);
+
+  // ===== EXTRA FEATURES =====
+  let headshot = rand(90,97);
+  let aimHead = rand(95,100);
+  let aimLock = rand(95,100);
+  let recoil = 0;
+
+  let fireBtn = 50;
+  if(finger==="thumb") fireBtn=rand(48,55);
+  if(finger==="claw") fireBtn=rand(45,50);
+  if(finger==="four") fireBtn=rand(40,45);
+
+  // ===== OUTPUT =====
+  out.innerHTML = `
+📱 <b>${phone}</b><br><br>
+🎯 General: ${general}<br>
+🔴 Red Dot: ${red}<br>
+🔭 2x Scope: ${s2}<br>
+🔍 4x Scope: ${s4}<br>
+🎯 AWM Scope: ${awm}<br><br>
+💥 Headshot Rate: ${headshot}%<br>
+🎯 Aim Head: ${aimHead}%<br>
+🔒 Aim Lock: ${aimLock}%<br>
+🔄 Recoil: ${recoil}%<br>
+🔘 Fire Button Size: ${fireBtn}%
+`;
+}
+
+function phoneName(){
+  return document.getElementById("phone").value || "Unknown Device";
+}
+</script>
+
+</body>
+</html>
