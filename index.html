@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Free Fire PRO Sensitivity Generator</title>
+<style>
+    body {
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        font-family: Arial, sans-serif;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .card {
+        background: #111;
+        padding: 25px;
+        border-radius: 15px;
+        width: 380px;
+        box-shadow: 0 0 20px #00ffcc;
+    }
+
+    h2 {
+        text-align: center;
+        color: #00ffcc;
+    }
+
+    input, select, button {
+        width: 100%;
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 8px;
+        border: none;
+        font-size: 14px;
+    }
+
+    input, select {
+        background: #222;
+        color: #fff;
+    }
+
+    button {
+        background: #00ffcc;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 15px;
+    }
+
+    button:hover {
+        background: #00ccaa;
+    }
+
+    .result {
+        margin-top: 15px;
+        background: #000;
+        padding: 12px;
+        border-radius: 10px;
+        font-size: 14px;
+    }
+
+    .pro {
+        color: #00ffcc;
+        font-size: 12px;
+        text-align: center;
+        margin-top: 8px;
+    }
+</style>
+</head>
+<body>
+
+<div class="card">
+    <h2>🎮 Free Fire Sensi PRO++</h2>
+
+    <input type="text" id="phone" placeholder="📱 Phone Name (e.g. Redmi, Samsung)">
+
+    <label>Headshot Rate Sensitivity</label>
+    <select id="headshot">
+        <option value="97">97%</option>
+        <option value="95">95%</option>
+        <option value="90">90%</option>
+    </select>
+
+    <label>Recoil Sensitivity</label>
+    <select id="recoil">
+        <option value="0">0% (No Recoil)</option>
+    </select>
+
+    <label>Aim Head Sensitivity</label>
+    <select id="aimHead">
+        <option value="100">100%</option>
+        <option value="95">95%</option>
+    </select>
+
+    <label>Aim Lock Sensitivity</label>
+    <select id="aimLock">
+        <option value="100">100%</option>
+        <option value="95">95%</option>
+    </select>
+
+    <label>Fire Button Size</label>
+    <select id="fireBtn">
+        <option value="40">40%</option>
+        <option value="45">45%</option>
+        <option value="50">50%</option>
+        <option value="55">55%</option>
+    </select>
+
+    <button onclick="getSensi()">🔥 Get Sensi</button>
+
+    <div class="result" id="output"></div>
+
+    <div class="pro">🎨 Design PRO | 📊 Anti-Random | 🎮 UI PRO++</div>
+</div>
+
+<script>
+function smartRandom(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getSensi() {
+    const phone = document.getElementById("phone").value || "Unknown Device";
+
+    const general = smartRandom(90, 200);
+    const redDot = smartRandom(85, 180);
+    const scope2x = smartRandom(75, 165);
+    const scope4x = smartRandom(65, 150);
+    const awm = smartRandom(45, 130);
+    const freeLook = smartRandom(60, 170);
+
+    document.getElementById("output").innerHTML = `
+    📱 Device: <b>${phone}</b><br><br>
+
+    🎯 General: <b>${general}</b><br>
+    🔴 Red Dot: <b>${redDot}</b><br>
+    🔍 2x Scope: <b>${scope2x}</b><br>
+    🔭 4x Scope: <b>${scope4x}</b><br>
+    🎯 AWM Scope: <b>${awm}</b><br>
+    👀 Free Look: <b>${freeLook}</b><br><br>
+
+    ✅ Headshot Rate: ${headshot.value}%<br>
+    ✅ Recoil: ${recoil.value}%<br>
+    ✅ Aim Head: ${aimHead.value}%<br>
+    ✅ Aim Lock: ${aimLock.value}%<br>
+    🔘 Fire Button: ${fireBtn.value}%<br>
+    `;
+}
+</script>
+
+</body>
+</html>
