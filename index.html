@@ -1,0 +1,149 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI-STYLE SMART SENSI – Free Fire</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      font-family: Arial, sans-serif;
+      color: #fff;
+      padding: 20px;
+    }
+    .container {
+      max-width: 420px;
+      margin: auto;
+      background: #111;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #00ffd5;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      font-size: 14px;
+    }
+    input, select {
+      background: #222;
+      color: #fff;
+    }
+    button {
+      background: linear-gradient(90deg, #00ffd5, #00b3ff);
+      color: #000;
+      font-weight: bold;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      background: #000;
+      padding: 15px;
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .link-box {
+      margin-top: 10px;
+      word-break: break-all;
+      background: #222;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>SMART SENSI FF</h1><label>Phone Name</label>
+<input id="phone" placeholder="e.g. Redmi Note 12" />
+
+<label>Headshot Rate Sensitivity (%)</label>
+<select id="headshot">
+  <option value="97">97%</option>
+  <option value="95">95%</option>
+  <option value="90">90%</option>
+  <option value="random">Random (Real)</option>
+</select>
+
+<label>Recoil Sensitivity</label>
+<select id="recoil">
+  <option value="0">0% (Pro Control)</option>
+  <option value="random">Random (0–20)</option>
+</select>
+
+<label>Aim Head Sensitivity</label>
+<select id="aimHead">
+  <option value="100">100%</option>
+  <option value="95">95%</option>
+  <option value="random">Random (90–100)</option>
+</select>
+
+<label>Aim Lock Sensitivity</label>
+<select id="aimLock">
+  <option value="100">100%</option>
+  <option value="95">95%</option>
+  <option value="random">Random (90–100)</option>
+</select>
+
+<label>Fire Button Size (%)</label>
+<select id="fireBtn">
+  <option value="40">40%</option>
+  <option value="45">45%</option>
+  <option value="50">50%</option>
+  <option value="55">55%</option>
+  <option value="random">Random (40–55)</option>
+</select>
+
+<button onclick="getSensi()">Get Sensi</button>
+
+<div id="output" class="result" style="display:none"></div>
+
+  </div>  <script>
+    function rand(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function valueOrRandom(selectId, min, max) {
+      const v = document.getElementById(selectId).value;
+      return v === 'random' ? rand(min, max) : Number(v);
+    }
+
+    function getSensi() {
+      const phone = document.getElementById('phone').value || 'Unknown Phone';
+
+      const headshot = valueOrRandom('headshot', 90, 97);
+      const recoil = valueOrRandom('recoil', 0, 20);
+      const aimHead = valueOrRandom('aimHead', 90, 100);
+      const aimLock = valueOrRandom('aimLock', 90, 100);
+      const fireBtn = valueOrRandom('fireBtn', 40, 55);
+
+      const link = `https://smart-sensi.ff/?phone=${encodeURIComponent(phone)}&hs=${headshot}&rc=${recoil}&ah=${aimHead}&al=${aimLock}&fb=${fireBtn}`;
+
+      document.getElementById('output').style.display = 'block';
+      document.getElementById('output').innerHTML = `
+        <b>📱 Phone:</b> ${phone}<br>
+        <b>🎯 Headshot Rate:</b> ${headshot}%<br>
+        <b>🔫 Recoil:</b> ${recoil}%<br>
+        <b>🎯 Aim Head:</b> ${aimHead}%<br>
+        <b>🧲 Aim Lock:</b> ${aimLock}%<br>
+        <b>🔥 Fire Button:</b> ${fireBtn}%<br><br>
+        <b>🔗 Shareable Link:</b>
+        <div class="link-box">${link}</div>
+      `;
+    }
+  </script></body>
+</html>
