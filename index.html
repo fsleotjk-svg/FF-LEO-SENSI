@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>🔥 FF TOP 1 Sensitivity Generator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    font-family: Arial, sans-serif;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
+
+.container {
+    max-width: 420px;
+    margin: auto;
+    background: rgba(0,0,0,0.5);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 0 20px #00ffcc;
+}
+
+h1 {
+    color: #00ffcc;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: none;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 15px;
+    background: #00ffcc;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #00ccaa;
+}
+
+.result {
+    margin-top: 20px;
+    background: #111;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.link {
+    word-break: break-all;
+    color: #00ffcc;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>🔥 FF TOP 1 SENSI</h1>
+
+<input type="text" id="phone" placeholder="📱 Phone Model (e.g. Redmi / Samsung)">
+
+<label>🎯 Headshot Rate Sensitivity</label>
+<select id="headshot">
+    <option value="97">97%</option>
+    <option value="95">95%</option>
+    <option value="90">90%</option>
+</select>
+
+<label>🎯 Aim Head Sensitivity</label>
+<select id="aimhead">
+    <option value="100">100%</option>
+    <option value="95">95%</option>
+</select>
+
+<label>🔒 Aim Lock Sensitivity</label>
+<select id="aimlock">
+    <option value="100">100%</option>
+    <option value="95">95%</option>
+</select>
+
+<label>🔫 Fire Button Size</label>
+<select id="firebtn">
+    <option value="40">40%</option>
+    <option value="45">45%</option>
+    <option value="50">50%</option>
+    <option value="55">55%</option>
+</select>
+
+<button onclick="getSensi()">🔥 Get Sensi</button>
+
+<div class="result" id="output" style="display:none;"></div>
+
+</div>
+
+<script>
+function smartRandom(min, max) {
+    let base = Math.random();
+    let curve = Math.pow(base, 0.6); // Anti-random (stable)
+    return Math.floor(curve * (max - min + 1) + min);
+}
+
+function getSensi() {
+    let phone = document.getElementById("phone").value || "Unknown";
+
+    let headshot = document.getElementById("headshot").value;
+    let aimhead = document.getElementById("aimhead").value;
+    let aimlock = document.getElementById("aimlock").value;
+    let firebtn = document.getElementById("firebtn").value;
+
+    // REALISTIC RANDOM SENSITIVITY
+    let general = smartRandom(90, 200);
+    let redDot = smartRandom(85, 190);
+    let scope2x = smartRandom(80, 180);
+    let scope4x = smartRandom(75, 170);
+    let awm = smartRandom(60, 150);
+    let freeLook = smartRandom(50, 160);
+
+    let link = `https://ff-sensi.top/apply?
+phone=${encodeURIComponent(phone)}
+&general=${general}
+&reddot=${redDot}
+&2x=${scope2x}
+&4x=${scope4x}
+&awm=${awm}
+&freelook=${freeLook}
+&headshot=${headshot}
+&aimhead=${aimhead}
+&aimlock=${aimlock}
+&firebtn=${firebtn}`;
+
+    document.getElementById("output").style.display = "block";
+    document.getElementById("output").innerHTML = `
+📱 Phone: ${phone}
+
+🎯 General: ${general}
+🎯 Red Dot: ${redDot}
+🎯 2x Scope: ${scope2x}
+🎯 4x Scope: ${scope4x}
+🎯 AWM Scope: ${awm}
+🎯 Free Look: ${freeLook}
+
+🔥 Headshot Rate: ${headshot}%
+🎯 Aim Head: ${aimhead}%
+🔒 Aim Lock: ${aimlock}%
+🔫 Fire Button: ${firebtn}%
+
+🔗 Generated Link:
+<div class="link">${link}</div>
+`;
+}
+</script>
+
+</body>
+</html>
