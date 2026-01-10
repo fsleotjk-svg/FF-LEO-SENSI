@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TOP 1 WORLD FF Sensitivity Generator</title>
+<style>
+body {
+    background:#0b0b0b;
+    color:#fff;
+    font-family:Arial, sans-serif;
+    text-align:center;
+}
+.container{
+    max-width:420px;
+    margin:auto;
+    padding:20px;
+    border:2px solid #ff0000;
+    border-radius:12px;
+}
+h1{color:#ff2d2d;}
+input, select, button {
+    width:90%;
+    padding:10px;
+    margin:8px;
+    border-radius:8px;
+    border:none;
+}
+button{
+    background:#ff0000;
+    color:#fff;
+    font-size:18px;
+    font-weight:bold;
+}
+.result{
+    margin-top:15px;
+    background:#111;
+    padding:15px;
+    border-radius:10px;
+}
+label{
+    display:block;
+    margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+<h1>🔥 TOP 1 WORLD FF</h1>
+<p>FREE FIRE OB51</p>
+
+<input type="text" id="phone" placeholder="📱 Phone Name">
+
+<label>Min Sensitivity (0–200)</label>
+<input type="number" id="min" value="90">
+
+<label>Max Sensitivity (0–200)</label>
+<input type="number" id="max" value="200">
+
+<label><input type="checkbox" id="headshot" checked> Headshot Rate</label>
+<label><input type="checkbox" id="aimhead" checked> Aim Head</label>
+<label><input type="checkbox" id="aimlock" checked> Aim Lock</label>
+<label><input type="checkbox" id="recoil" checked> Zero Recoil</label>
+
+<button onclick="getSensi()">🔥 Get Sensi</button>
+
+<div class="result" id="output"></div>
+</div>
+
+<script>
+function rand(min,max){
+    return Math.floor(Math.random()*(max-min+1))+min;
+}
+
+function getSensi(){
+    let min = parseInt(document.getElementById("min").value);
+    let max = parseInt(document.getElementById("max").value);
+    let phone = document.getElementById("phone").value || "Unknown Device";
+
+    let text = `<h3>📱 ${phone}</h3>`;
+
+    if(document.getElementById("headshot").checked){
+        text += `🎯 Headshot Rate: ${rand(90,97)}%<br>`;
+    }
+    if(document.getElementById("recoil").checked){
+        text += `🔻 Recoil Control: 0%<br>`;
+    }
+    if(document.getElementById("aimhead").checked){
+        text += `🎯 Aim Head: ${rand(95,100)}%<br>`;
+    }
+    if(document.getElementById("aimlock").checked){
+        text += `🔒 Aim Lock: ${rand(95,100)}%<br>`;
+    }
+
+    text += `🔥 General Sensitivity: ${rand(min,max)}<br>`;
+    text += `🖱 Fire Button Size: ${rand(40,55)}%<br>`;
+    text += `<br><b>WORLD LEVEL • REAL • PRO</b>`;
+
+    document.getElementById("output").innerHTML = text;
+}
+</script>
+
+</body>
+</html>
