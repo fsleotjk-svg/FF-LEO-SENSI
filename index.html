@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smart FF Sensi Generator</title>
+<style>
+body {
+    background:#0f172a;
+    font-family: Arial, sans-serif;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+}
+.container {
+    width:360px;
+    background:#020617;
+    padding:20px;
+    border-radius:14px;
+    box-shadow:0 0 20px #0ea5e9;
+}
+h2 {
+    text-align:center;
+    color:#38bdf8;
+}
+input, select, button {
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    border:none;
+    border-radius:8px;
+    font-size:14px;
+}
+input, select {
+    background:#020617;
+    color:#fff;
+    border:1px solid #334155;
+}
+button {
+    background:#0ea5e9;
+    color:#000;
+    font-weight:bold;
+    cursor:pointer;
+}
+button:hover {
+    background:#38bdf8;
+}
+.result {
+    margin-top:15px;
+    background:#020617;
+    padding:10px;
+    border-radius:10px;
+    border:1px solid #0ea5e9;
+}
+.value {
+    color:#22c55e;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h2>⚙️ Smart FF Sensi (OB52)</h2>
+
+<input id="phone" placeholder="📱 Phone name (e.g. Redmi Note 12)">
+
+<select id="headshot">
+<option value="90">90% Headshot</option>
+<option value="95">95% Headshot</option>
+<option value="97">97% Headshot</option>
+</select>
+
+<select id="recoil">
+<option value="2">2% Recoil</option>
+<option value="0">0% Recoil</option>
+</select>
+
+<select id="aimhead">
+<option value="95">95% Aim Head</option>
+<option value="100">100% Aim Head</option>
+</select>
+
+<select id="aimlock">
+<option value="95">95% Aim Lock</option>
+<option value="100">100% Aim Lock</option>
+</select>
+
+<button onclick="getSensi()">🎯 GET SENSI</button>
+
+<div class="result" id="output"></div>
+</div>
+
+<script>
+function smartRandom(min, max, boost){
+    return Math.min(200,
+        Math.max(0,
+            Math.floor((Math.random()*(max-min)+min) + boost)
+        )
+    );
+}
+
+function getSensi(){
+    let phone = document.getElementById("phone").value || "Unknown";
+    let headshot = parseInt(document.getElementById("headshot").value);
+    let recoil = parseInt(document.getElementById("recoil").value);
+    let aimhead = parseInt(document.getElementById("aimhead").value);
+    let aimlock = parseInt(document.getElementById("aimlock").value);
+
+    // 📱 phone smart factor
+    let phoneFactor = phone.length * 1.5;
+
+    // 🧠 smart logic boost
+    let smartBoost = (headshot + aimhead + aimlock) / 10 - recoil*5;
+
+    let general = smartRandom(65, 200, smartBoost + phoneFactor);
+    let redDot = smartRandom(85, 200, smartBoost);
+    let scope2x = smartRandom(65, 200, smartBoost);
+    let scope4x = smartRandom(85, 200, smartBoost);
+    let awm = smartRandom(75, 200, smartBoost - recoil*10);
+    let freeLook = smartRandom(65, 200, phoneFactor/2);
+
+    document.getElementById("output").innerHTML = `
+    📱 Phone: <span class="value">${phone}</span><br><br>
+
+    🎮 General: <span class="value">${general}</span><br>
+    🔴 Red Dot: <span class="value">${redDot}</span><br>
+    🔍 2x Scope: <span class="value">${scope2x}</span><br>
+    🔭 4x Scope: <span class="value">${scope4x}</span><br>
+    🎯 AWM Scope: <span class="value">${awm}</span><br>
+    👀 Free Look: <span class="value">${freeLook}</span><br><br>
+
+    ⚡ Smart Logic: <span class="value">ON</span><br>
+    🎯 Headshot Optimized: <span class="value">${headshot}%</span>
+    `;
+}
+</script>
+
+</body>
+</html>
