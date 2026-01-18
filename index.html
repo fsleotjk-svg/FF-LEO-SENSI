@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="tg">
+<head>
+<meta charset="UTF-8">
+<title>FF Smart Sensi Bot OB52</title>
+<style>
+body {
+  background:#0f172a;
+  color:#e5e7eb;
+  font-family:Arial;
+  padding:20px;
+}
+input, select, button {
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  border-radius:8px;
+  border:none;
+}
+button {
+  background:#22c55e;
+  font-size:18px;
+  font-weight:bold;
+}
+.box {
+  background:#020617;
+  padding:15px;
+  border-radius:12px;
+  margin-top:15px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>🔥 Free Fire Smart Sensi Bot (OB52)</h2>
+
+<input id="phone" placeholder="Номи телефон (Samsung, Xiaomi...)">
+
+<select id="headshot">
+  <option value="90">90% Headshot</option>
+  <option value="95">95% Headshot</option>
+  <option value="97">97% Headshot</option>
+</select>
+
+<select id="recoil">
+  <option value="2">2% Recoil</option>
+  <option value="0">0% Recoil</option>
+</select>
+
+<select id="aimHead">
+  <option value="95">95% Aim Head</option>
+  <option value="100">100% Aim Head</option>
+</select>
+
+<select id="aimLock">
+  <option value="95">95% Aim Lock</option>
+  <option value="100">100% Aim Lock</option>
+</select>
+
+<button onclick="getSensi()">GET SENSI</button>
+
+<div class="box" id="result"></div>
+
+<script>
+function smartRandom(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function phoneBoost(name) {
+  name = name.toLowerCase();
+  if (name.includes("iphone")) return 1.05;
+  if (name.includes("samsung")) return 1.03;
+  if (name.includes("xiaomi")) return 1.02;
+  if (name.includes("oppo")) return 1.01;
+  return 1.00;
+}
+
+function getSensi() {
+  let phone = document.getElementById("phone").value;
+  let hs = Number(headshot.value);
+  let rc = Number(recoil.value);
+  let ah = Number(aimHead.value);
+  let al = Number(aimLock.value);
+
+  let boost = phoneBoost(phone);
+
+  let general = smartRandom(65,185) * boost;
+  let redDot  = smartRandom(85,185) * boost;
+  let scope2x = smartRandom(65,185) * boost;
+  let scope4x = smartRandom(85,170) * boost;
+  let awm     = smartRandom(75,150)  * boost;
+
+  general += hs / 10;
+  redDot  += ah / 10;
+  scope4x += al / 15;
+  awm     -= rc * 2;
+
+  function fix(x){ return Math.max(0, Math.min(200, Math.round(x))); }
+
+  document.getElementById("result").innerHTML = `
+  📱 Телефон: <b>${phone || "Номаълум"}</b><br><br>
+  🎯 General: <b>${fix(general)}</b><br>
+  🔴 Red Dot: <b>${fix(redDot)}</b><br>
+  🔍 2x Scope: <b>${fix(scope2x)}</b><br>
+  🔭 4x Scope: <b>${fix(scope4x)}</b><br>
+  🎯 AWM Scope: <b>${fix(awm)}</b><br><br>
+  ⚠️ Ин рақамҳоро <b>дастӣ</b> дар Free Fire гузор!
+  `;
+}
+</script>
+
+</body>
+</html>
