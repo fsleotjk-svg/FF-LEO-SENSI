@@ -1,0 +1,95 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Sensi Generator – Free Fire OB52</title>
+  <style>
+    body{margin:0;font-family:system-ui;background:#0b0f1a;color:#fff}
+    .app{max-width:420px;margin:auto;padding:16px}
+    .card{background:#12172a;border-radius:20px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+    h1{text-align:center;font-size:22px;margin-bottom:12px}
+    label{font-size:13px;opacity:.85;margin-top:10px;display:block}
+    input,select{width:100%;padding:12px;margin-top:6px;border-radius:14px;border:none;background:#1b2040;color:#fff}
+    .row{display:flex;gap:10px}
+    button{width:100%;margin-top:18px;padding:14px;border-radius:18px;border:none;font-size:16px;font-weight:700;background:linear-gradient(135deg,#00f5a0,#00a2ff);color:#000}
+    .result{margin-top:18px;background:#0e1330;border-radius:16px;padding:14px;font-size:14px;line-height:1.6}
+    .tag{display:inline-block;background:#00f5a0;color:#000;padding:4px 10px;border-radius:999px;font-size:12px;margin-bottom:8px}
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="card">
+    <h1>🎯 Smart Sensi Bot<br>Free Fire OB52</h1><label>📱 Phone model</label>
+<input id="phone" placeholder="Samsung / Xiaomi / iPhone" />
+
+<label>Headshot rate</label>
+<select id="hs"><option>90</option><option>95</option><option>97</option></select>
+
+<div class="row">
+  <div>
+    <label>Recoil</label>
+    <select id="recoil"><option>2</option><option>0</option></select>
+  </div>
+  <div>
+    <label>Aim head</label>
+    <select id="aimHead"><option>95</option><option>100</option></select>
+  </div>
+</div>
+
+<label>Aim lock</label>
+<select id="aimLock"><option>95</option><option>100</option></select>
+
+<button onclick="generate()">GET SENSI</button>
+
+<div id="out" class="result" style="display:none"></div>
+
+  </div>
+</div><script>
+function clamp(v){return Math.max(0,Math.min(200,Math.round(v)))}
+
+function phoneCoef(p){p=p.toLowerCase();
+  if(p.includes('iphone'))return 1.12;
+  if(p.includes('samsung'))return 1.06;
+  if(p.includes('xiaomi')||p.includes('redmi'))return 1.0;
+  if(p.includes('oppo')||p.includes('realme'))return .96;
+  return 1.0;
+}
+
+function smart(min,max,skill){
+  const r=Math.random();
+  return min+(max-min)*((r+skill/100)/2);
+}
+
+function generate(){
+  const phone=document.getElementById('phone').value||'Unknown';
+  const hs=+document.getElementById('hs').value;
+  const recoil=+document.getElementById('recoil').value;
+  const ah=+document.getElementById('aimHead').value;
+  const al=+document.getElementById('aimLock').value;
+
+  const pf=phoneCoef(phone);
+
+  const general = clamp(smart(130,185,hs)*pf);
+  const redDot = clamp(smart(100,185,ah)*pf);
+  const scope2x = clamp(smart(100,185,al)*pf);
+  const scope4x = clamp(smart(101,170,al-recoil)*pf);
+  const awm = clamp(smart(100,100,150-recoil)*pf);
+  const freeLook = clamp(smart(70,150,hs)*pf);
+
+  const o=document.getElementById('out');
+  o.style.display='block';
+  o.innerHTML=`<div class="tag">SMART BOT • REAL LOGIC</div><br>
+  📱 Phone: <b>${phone}</b><br>
+  🎯 Target HS: <b>${hs}%</b><br><br>
+  <b>Sensitivity (0–200)</b><br>
+  • General: <b>${general}</b><br>
+  • Red Dot: <b>${redDot}</b><br>
+  • 2x Scope: <b>${scope2x}</b><br>
+  • 4x Scope: <b>${scope4x}</b><br>
+  • AWM Scope: <b>${awm}</b><br>
+  • Free Look: <b>${freeLook}</b><br><br>
+  ✅ Balanced for all weapons<br>
+  🧠 Based on phone + selected skills`;
+}
+</script></body>
+</html>
