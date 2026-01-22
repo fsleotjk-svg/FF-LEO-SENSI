@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smart Sensi Bot FF OB52</title>
+<style>
+body{
+  background:#0f0f0f;
+  color:#fff;
+  font-family:Arial;
+}
+.container{
+  max-width:420px;
+  margin:auto;
+  padding:20px;
+}
+h2{
+  text-align:center;
+  color:#00ffcc;
+}
+input, select, button{
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+  border:none;
+  border-radius:8px;
+}
+button{
+  background:#00ffcc;
+  font-size:18px;
+  font-weight:bold;
+  cursor:pointer;
+}
+.result{
+  background:#1a1a1a;
+  padding:15px;
+  border-radius:10px;
+  margin-top:15px;
+}
+.value{
+  color:#00ffcc;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+<h2>📱 Smart Sensi Bot FF OB52</h2>
+
+<input type="text" id="phone" placeholder="Enter phone model (e.g Redmi Note 12)">
+
+<select id="headshot">
+  <option value="90">90% Headshot</option>
+  <option value="95">95% Headshot</option>
+  <option value="97">97% Headshot</option>
+</select>
+
+<select id="recoil">
+  <option value="2">2% Recoil</option>
+  <option value="0">0% Recoil</option>
+</select>
+
+<select id="aimhead">
+  <option value="95">95% Aim Head</option>
+  <option value="100">100% Aim Head</option>
+</select>
+
+<select id="aimlock">
+  <option value="95">95% Aim Lock</option>
+  <option value="100">100% Aim Lock</option>
+</select>
+
+<button onclick="getSensi()">GET SENSI</button>
+
+<div class="result" id="output"></div>
+</div>
+
+<script>
+function smartRandom(min, max){
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function phoneFactor(phone){
+  phone = phone.toLowerCase();
+  if(phone.includes("iphone")) return 1.1;
+  if(phone.includes("samsung")) return 1.05;
+  if(phone.includes("redmi") || phone.includes("xiaomi")) return 1.0;
+  if(phone.includes("realme")) return 0.95;
+  return 1.0;
+}
+
+function clamp(val){
+  return Math.max(0, Math.min(200, Math.round(val)));
+}
+
+function getSensi(){
+  let phone = document.getElementById("phone").value || "unknown";
+  let headshot = parseInt(document.getElementById("headshot").value);
+  let recoil = parseInt(document.getElementById("recoil").value);
+  let aimhead = parseInt(document.getElementById("aimhead").value);
+  let aimlock = parseInt(document.getElementById("aimlock").value);
+
+  let factor = phoneFactor(phone);
+
+  let base = (headshot + aimhead + aimlock) / 3;
+  let recoilFix = recoil === 0 ? 1.08 : 1.0;
+
+  let general = clamp(smartRandom(130,185) * factor * recoilFix);
+  let redDot  = clamp(smartRandom(100,185) * factor);
+  let scope2x = clamp(smartRandom(100,185) * factor);
+  let scope4x = clamp(smartRandom(101,170) * factor);
+  let awm     = clamp(smartRandom(100,150) * factor);
+  let freelook= clamp(smartRandom(70,150)  * factor);
+
+  document.getElementById("output").innerHTML = `
+  📱 Phone: <span class="value">${phone}</span><br><br>
+  🎯 Headshot Rate: ${headshot}%<br>
+  🔧 Recoil: ${recoil}%<br>
+  🎯 Aim Head: ${aimhead}%<br>
+  🔒 Aim Lock: ${aimlock}%<br><br>
+
+  <b>🔥 SMART SENSITIVITY 🔥</b><br><br>
+  General: <span class="value">${general}</span><br>
+  Red Dot: <span class="value">${redDot}</span><br>
+  2x Scope: <span class="value">${scope2x}</span><br>
+  4x Scope: <span class="value">${scope4x}</span><br>
+  AWM Scope: <span class="value">${awm}</span><br>
+  Free Look: <span class="value">${freelook}</span><br><br>
+
+  ♾ Infinity Stable Sensitivity ✔
+  `;
+}
+</script>
+</body>
+</html>
