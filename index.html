@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smart FF Sensi Bot OB52</title>
+<style>
+body{
+    background:#0b0b0f;
+    color:#fff;
+    font-family:Arial;
+}
+.container{
+    max-width:420px;
+    margin:auto;
+    padding:15px;
+}
+.card{
+    background:#14141c;
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:12px;
+}
+h2{text-align:center;color:#00e5ff}
+input,select,button{
+    width:100%;
+    padding:10px;
+    margin-top:8px;
+    border-radius:8px;
+    border:none;
+    font-size:14px;
+}
+button{
+    background:#00e5ff;
+    color:#000;
+    font-weight:bold;
+}
+.result{
+    background:#09090f;
+    border-radius:10px;
+    padding:10px;
+    margin-top:10px;
+}
+.small{font-size:12px;color:#aaa}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<h2>SMART FF SENSI BOT</h2>
+<p class="small">Free Fire OB52 | Smart Logic | No Lag</p>
+
+<div class="card">
+<label>📱 Phone name</label>
+<input id="phone" placeholder="Example: Redmi Note 12">
+
+<label>🎯 Headshot rate</label>
+<select id="hs">
+<option value="0.90">90%</option>
+<option value="0.95">95%</option>
+<option value="0.97">97%</option>
+</select>
+
+<label>🔫 Recoil</label>
+<select id="recoil">
+<option value="0.02">2%</option>
+<option value="0">0%</option>
+</select>
+
+<label>🧠 Aim Head</label>
+<select id="aimhead">
+<option value="0.95">95%</option>
+<option value="1">100%</option>
+</select>
+
+<label>🔒 Aim Lock</label>
+<select id="aimlock">
+<option value="0.95">95%</option>
+<option value="1">100%</option>
+</select>
+
+<label>🔥 Fire Button Size</label>
+<input type="number" id="fire" min="40" max="55" value="48">
+</div>
+
+<button onclick="getSensi()">GET SENSI</button>
+
+<div class="result" id="out"></div>
+
+</div>
+
+<script>
+function rnd(min,max){
+    return Math.floor(Math.random()*(max-min+1))+min;
+}
+
+function phoneFactor(name){
+    let sum=0;
+    for(let i=0;i<name.length;i++){
+        sum+=name.charCodeAt(i);
+    }
+    return (sum%10)/100;
+}
+
+function getSensi(){
+    let phone=document.getElementById("phone").value || "default";
+    let hs=parseFloat(document.getElementById("hs").value);
+    let recoil=parseFloat(document.getElementById("recoil").value);
+    let aimhead=parseFloat(document.getElementById("aimhead").value);
+    let aimlock=parseFloat(document.getElementById("aimlock").value);
+    let fire=document.getElementById("fire").value;
+
+    let pf=phoneFactor(phone);
+
+    let general = rnd(130,185)*hs + pf*100;
+    let red = rnd(100,185)*aimlock;
+    let scope2 = rnd(100,185)*aimhead;
+    let scope4 = rnd(101,170)*(1-recoil);
+    let awm = rnd(100,150)*(1-recoil);
+    let freelook = rnd(70,150);
+
+    general=Math.min(200,Math.round(general));
+    red=Math.min(200,Math.round(red));
+    scope2=Math.min(200,Math.round(scope2));
+    scope4=Math.min(200,Math.round(scope4));
+    awm=Math.min(200,Math.round(awm));
+    freelook=Math.min(200,Math.round(freelook));
+
+    document.getElementById("out").innerHTML=`
+<b>📱 ${phone}</b><br><br>
+General: <b>${general}</b><br>
+Red Dot: <b>${red}</b><br>
+2x Scope: <b>${scope2}</b><br>
+4x Scope: <b>${scope4}</b><br>
+AWM: <b>${awm}</b><br>
+Free Look: <b>${freelook}</b><br><br>
+🔥 Fire Button: <b>${fire}</b><br>
+🟢 Stable Sensitivity: <b>INFINITY</b>
+`;
+}
+</script>
+</body>
+</html>
