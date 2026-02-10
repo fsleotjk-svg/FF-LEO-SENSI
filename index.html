@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Smart Sensi FF OB52</title>
+<style>
+body{
+font-family:Arial;
+background:#0f172a;
+color:white;
+text-align:center;
+padding:20px;
+}
+.box{
+background:#1e293b;
+padding:20px;
+border-radius:15px;
+max-width:400px;
+margin:auto;
+}
+input,select,button{
+margin:8px;
+padding:10px;
+border-radius:10px;
+border:none;
+width:90%;
+}
+button{
+background:#22c55e;
+color:white;
+font-weight:bold;
+}
+.result{
+margin-top:15px;
+text-align:left;
+}
+</style>
+</head>
+<body>
+
+<div class="box">
+<h2>SMART SENSI BOT (OB52)</h2>
+
+<input id="phone" placeholder="Phone name">
+
+<select id="headshot">
+<option>90%</option>
+<option>95%</option>
+<option>97%</option>
+</select>
+
+<select id="recoil">
+<option>2%</option>
+<option>0%</option>
+</select>
+
+<select id="aimhead">
+<option>95%</option>
+<option>100%</option>
+</select>
+
+<select id="aimlock">
+<option>95%</option>
+<option>100%</option>
+</select>
+
+<button onclick="getSensi()">GET SENSI</button>
+
+<div class="result" id="out"></div>
+</div>
+
+<script>
+
+function rand(min,max){
+return Math.floor(Math.random()*(max-min+1))+min;
+}
+
+function getSensi(){
+
+let phone=document.getElementById("phone").value.length;
+
+let power=phone*2;
+
+let general=rand(130,185)+power;
+let reddot=rand(100,185)+power;
+let scope2x=rand(100,185)+power;
+let scope4x=rand(101,170)+power;
+let awm=rand(100,150)+power;
+let freelook=rand(70,150)+power;
+let firebtn=rand(40,55);
+
+function limit(v){return Math.max(0,Math.min(200,v));}
+
+document.getElementById("out").innerHTML=
+`
+General: ${limit(general)}<br>
+RedDot: ${limit(reddot)}<br>
+2x Scope: ${limit(scope2x)}<br>
+4x Scope: ${limit(scope4x)}<br>
+AWM: ${limit(awm)}<br>
+Free Look: ${limit(freelook)}<br>
+Fire Button Size: ${firebtn}<br>
+Stable: Infinity Stable Logic
+`;
+
+}
+
+</script>
+</body>
+</html>
