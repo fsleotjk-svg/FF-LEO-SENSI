@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Smart Free Fire Sensitivity Generator (OB52 Compatible)</title>
+<style>
+body{
+background:#0f0f0f;
+color:white;
+font-family:Arial;
+text-align:center;
+}
+.box{
+background:#1c1c1c;
+padding:20px;
+border-radius:15px;
+width:90%;
+margin:auto;
+margin-top:20px;
+}
+input,select,button{
+margin:8px;
+padding:10px;
+border-radius:10px;
+border:none;
+}
+button{
+background:#00ff99;
+font-weight:bold;
+}
+.result{
+margin-top:15px;
+font-size:18px;
+}
+</style>
+</head>
+<body>
+
+<h2>🔥 Smart FF Sensi Generator (OB52)</h2>
+
+<div class="box">
+
+<input type="text" id="phone" placeholder="Phone name">
+
+<br>
+
+<label>Headshot Rate</label>
+<select id="headshot">
+<option>90%</option>
+<option>95%</option>
+<option>97%</option>
+</select>
+
+<br>
+
+<label>Aim Lock</label>
+<select id="aim">
+<option>95%</option>
+<option>100%</option>
+</select>
+
+<br>
+
+<label>Recoil Control</label>
+<select id="recoil">
+<option>2%</option>
+<option>0%</option>
+</select>
+
+<br>
+
+<label>Fire Button Size (40-55)</label>
+<input type="number" id="fire" min="40" max="55" value="50">
+
+<br><br>
+
+<button onclick="generate()">GET SENSI</button>
+
+<div class="result" id="output"></div>
+
+</div>
+
+<script>
+function smartRandom(min,max){
+return Math.floor(Math.random()*(max-min+1))+min;
+}
+
+function generate(){
+
+let phone=document.getElementById("phone").value.length;
+let head=document.getElementById("headshot").value;
+let aim=document.getElementById("aim").value;
+let recoil=document.getElementById("recoil").value;
+let fire=document.getElementById("fire").value;
+
+let boost=phone*2;
+
+let general=smartRandom(130,185)+boost%10;
+let red=smartRandom(100,185);
+let x2=smartRandom(100,185);
+let x4=smartRandom(101,170);
+let awm=smartRandom(100,150);
+let free=smartRandom(70,150);
+
+document.getElementById("output").innerHTML=
+`
+General: ${general}<br>
+RedDot: ${red}<br>
+2x Scope: ${x2}<br>
+4x Scope: ${x4}<br>
+AWM: ${awm}<br>
+Free Look: ${free}<br>
+Fire Button: ${fire}<br><br>
+
+Stable Sensitivity: Infinity Stable ✔<br>
+Headshot Mode: ${head}<br>
+Aim Lock: ${aim}<br>
+Recoil: ${recoil}
+`;
+
+}
+</script>
+
+</body>
+</html>
